@@ -45,6 +45,49 @@ export const register = async (req, res) => {
     }
 };
 
-export const login = (req, res) => {
-    res.send("Logged");
+export const login = async (req, res) => {
+
+    // Extract the info from the body.
+    const {email, password} = req.body;
+
+    try {
+        // We use the email from the body to find the user.
+        const userFound = await User.findOne({email});
+
+        if(!userFound) {
+            return res.status(400).json({message: 'User not found'})
+        }
+
+        // We comapre the password of the body with the one in the database.
+        const passwordMatch = await bcrypt.compare(password, userFound.password);
+
+        if(!passwordMatch) {
+            return res.status(400).json({message: 'Wrong password'})
+        }
+
+        // Create Token (created in libs/jwt.js).
+        const token = await createAccessToken( {id: userFound._id} );
+  
+        res.cookie('token', token);
+        res.json({
+            id: userFound.id,
+            username: userFound.username,
+            email: userFound.email,
+            createdAt: userFound.createdAt,
+            updatedAt: userFound.updatedAt
+        });
+
+    } catch (error) {
+        res.status(500).json({message: error.message});
+    }
+};
+
+export const logout = async (req, res) => {
+
+    // We clear the token to logout
+    res.cookie('token', "", {
+        expires: new Date(0)
+    });
+
+    return res.sendStatus(200);
 };
