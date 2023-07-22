@@ -2,7 +2,10 @@ import Task from "../models/taskModel.js";
 
 export const getTasks = async (req, res) => {
 
-    const tasks = await Task.find();
+    // Find all tasks of the user. We prev. saved user info on req in "/middlewares/validateToken.js".
+    // ".populate()" to show all user info.
+    const tasks = await Task.find({ user: req.user.id }).populate('user');
+
     return res.json(tasks);
 };
 
@@ -23,7 +26,8 @@ export const createTask = async (req, res) => {
     const newTask = new Task({
         title,
         description,
-        date
+        date,
+        user: req.user.id
     });
 
     const savedTask = await newTask.save();
@@ -32,7 +36,7 @@ export const createTask = async (req, res) => {
 };
 
 export const updateTask = async (req, res) => {
-    const task = await Task.findByIdAndUpdate(req.params.id);
+    const task = await Task.findByIdAndUpdate(req.params.id, req.body, {new: true});
     if(!task) {
         return res.status(404).json({ message: 'Task not found' })
     }
@@ -41,10 +45,10 @@ export const updateTask = async (req, res) => {
 };
 
 export const deleteTask = async (req, res) => {
-    const task = await Task.findByIdAndDelete(req.params.id, req.body, {new: true});
+    const task = await Task.findByIdAndDelete(req.params.id);
     if(!task) {
         return res.status(404).json({ message: 'Task not found' })
     }
     
-    res.json(task);
+    return res.sensStatus(204);
 };
