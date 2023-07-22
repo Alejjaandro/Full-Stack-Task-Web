@@ -5,8 +5,9 @@ import bcrypt from 'bcryptjs';
 // Importing function to create a token.
 import {createAccessToken} from '../libs/jwt.js';
 
-// Creating the functions that will handle the info of the routes:
+// Creating the functions that will handle the info:
 
+// ----- REGISTER ----- //
 export const register = async (req, res) => {
 
     // Extract the info from the body.
@@ -45,6 +46,7 @@ export const register = async (req, res) => {
     }
 };
 
+// ----- LOGIN ----- //
 export const login = async (req, res) => {
 
     // Extract the info from the body.
@@ -82,6 +84,7 @@ export const login = async (req, res) => {
     }
 };
 
+// ----- LOGOUT ----- //
 export const logout = async (req, res) => {
 
     // We clear the token to logout
@@ -91,3 +94,21 @@ export const logout = async (req, res) => {
 
     return res.sendStatus(200);
 };
+
+
+export const profile = async (req, res) => {
+    // We find the user by the id that we decodified and save on "/middleware/validateToken".
+    const userFound = await User.findById(req.user.id);
+
+    if(!userFound) {
+        return res.status(400).json({message: 'User not found'})
+    }
+
+    return res.json({
+        id: userFound._id,
+        username: userFound.username,
+        email: userFound.email,
+        createdAt: userFound.createdAt,
+        updatedAt: userFound.updatedAt
+    });
+}
