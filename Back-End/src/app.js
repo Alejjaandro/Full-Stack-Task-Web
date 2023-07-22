@@ -3,11 +3,17 @@ import express from 'express';
 import morgan from 'morgan';
 import cookieParser from 'cookie-parser';
 
+// Cors to allow all dominions to comunicate with this server.
+import cors from 'cors';
+
 // Importing routes.
 import authRoutes from './routes/auth.routes.js';
 import tasksRoutes from './routes/tasks.routes.js';
  
 const app = express();
+
+// We stablish only the dominion that will be allowed to comunicate.
+app.use(cors( { origin: 'http://localhost:3000' } ));
 
 // Using morgan to see on the console the petitions made to backend.
 app.use(morgan('dev'));
