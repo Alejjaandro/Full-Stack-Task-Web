@@ -6,7 +6,7 @@ import Register from './pages/Register.jsx';
 import Login from './pages/Login.jsx';
 
 // We import AuthProvider
-import { AuthProvider } from './context/auth.context.jsx';
+import { AuthProvider } from './context/AuthContext.jsx';
 
 export default function App() {
   return (

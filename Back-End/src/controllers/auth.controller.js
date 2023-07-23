@@ -63,7 +63,7 @@ export const login = async (req, res) => {
         const userFound = await User.findOne({email});
 
         if(!userFound) {
-            return res.status(400).json({message: 'User not found'})
+            return res.status(400).json({message: "This email doesn't exist"})
         }
 
         // We comapre the password of the body with the one in the database.
