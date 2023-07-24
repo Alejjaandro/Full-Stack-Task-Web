@@ -61,6 +61,13 @@ export const AuthProvider = ({ children }) => {
 
     }
 
+    // Remove the cookie with the token that grant access.
+    const logout = () => {
+        Cookies.remove("token");
+        setIsAuthenticated(false);
+        setUser(null);
+    }
+
     // Timeout so the errors don't stay on screen undefinetly. 5000 ms = 5 sec.
     useEffect(() => {
         if (errors.length > 0) {
@@ -110,7 +117,15 @@ export const AuthProvider = ({ children }) => {
 
     // All the components inside AuthContext will be able to access it values.
     return (
-        <AuthContext.Provider value={{ signup, signin, isAuthenticated, errors, user, loading }}>
+        <AuthContext.Provider value={{
+            signup,
+            signin,
+            logout,
+            isAuthenticated,
+            errors,
+            user,
+            loading
+        }}>
             {children}
         </AuthContext.Provider>
     )

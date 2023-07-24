@@ -8,6 +8,7 @@ import Home from './pages/Home.jsx';
 import Tasks from './pages/Tasks.jsx';
 import TaskForm from './pages/TaskForm.jsx';
 import Profile from './pages/Profile.jsx';
+import Navbar from './components/Navbar.jsx';
 
 import ProtectedRoutes from './ProtectedRoutes.jsx';
 
@@ -21,6 +22,9 @@ export default function App() {
     <AuthProvider>
       <TaskProvider>
         <BrowserRouter>
+
+          <Navbar />
+          
           <Routes>
 
             {/* Public Routes */}
