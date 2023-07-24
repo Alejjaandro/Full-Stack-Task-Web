@@ -11,31 +11,36 @@ import Profile from './pages/Profile.jsx';
 
 import ProtectedRoutes from './ProtectedRoutes.jsx';
 
-// We import AuthProvider
+// We import Context providers.
 import { AuthProvider } from './context/AuthContext.jsx';
+import { TaskProvider } from './context/TaskContext.jsx';
 
 export default function App() {
   return (
     // All components inside AuthProvider can access the context of "/context/auth.context.jsx".
     <AuthProvider>
-      <BrowserRouter>
-        <Routes>
+      <TaskProvider>
+        <BrowserRouter>
+          <Routes>
 
-          {/* Public Routes */}
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+            {/* Public Routes */}
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
 
-          {/* Protected Routes */}
-          <Route element={<ProtectedRoutes />} >
-            <Route path="/tasks" element={<Tasks />} />
-            <Route path="/add-task" element={<TaskForm />} />
-            <Route path="/tasks/:id" element={<TaskForm />} />
-            <Route path="/profile" element={<Profile />} />
-          </Route>
+            {/* Protected Routes */}
+            <Route element={<ProtectedRoutes />} >
 
-        </Routes>
-      </BrowserRouter>
+              <Route path="/tasks" element={<Tasks />} />
+              <Route path="/add-task" element={<TaskForm />} />
+              <Route path="/tasks/:id" element={<TaskForm />} />
+              <Route path="/profile" element={<Profile />} />
+
+            </Route>
+
+          </Routes>
+        </BrowserRouter>
+      </TaskProvider>
     </AuthProvider>
   )
 }

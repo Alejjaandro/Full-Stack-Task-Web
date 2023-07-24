@@ -14,15 +14,16 @@ export default function Login() {
   const { register, handleSubmit, formState: {errors} } = useForm();
   const {signin, isAuthenticated, errors: signinErrors} = useAuth();
 
-  // useEffect(() => {
-  //   if (isAuthenticated) {
-  //     navigate("/tasks");
-  //   }
-  // }, [isAuthenticated]);
-
   const onSubmit = handleSubmit(data => {
     signin(data);
   });
+
+  //redirects to task page.
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/tasks");
+    }
+  }, [isAuthenticated]);
   
   return (
     <div className="flex h-[calc(100vh-100px)] items-center justify-center">
