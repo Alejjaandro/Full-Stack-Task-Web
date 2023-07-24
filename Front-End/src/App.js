@@ -4,6 +4,12 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 // We import the pages
 import Register from './pages/Register.jsx';
 import Login from './pages/Login.jsx';
+import Home from './pages/Home.jsx';
+import Tasks from './pages/Tasks.jsx';
+import TaskForm from './pages/TaskForm.jsx';
+import Profile from './pages/Profile.jsx';
+
+import ProtectedRoutes from './ProtectedRoutes.jsx';
 
 // We import AuthProvider
 import { AuthProvider } from './context/AuthContext.jsx';
@@ -14,13 +20,20 @@ export default function App() {
     <AuthProvider>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<h1> Home Page </h1>} />
+
+          {/* Public Routes */}
+          <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/tasks" element={<h1> All Tasks </h1>} />
-          <Route path="/add-task" element={<h1> Add Task </h1>} />
-          <Route path="/tasks/:id" element={<h1> Task </h1>} />
-          <Route path="/profile" element={<h1> Profile </h1>} />
+
+          {/* Protected Routes */}
+          <Route element={<ProtectedRoutes />} >
+            <Route path="/tasks" element={<Tasks />} />
+            <Route path="/add-task" element={<TaskForm />} />
+            <Route path="/tasks/:id" element={<TaskForm />} />
+            <Route path="/profile" element={<Profile />} />
+          </Route>
+
         </Routes>
       </BrowserRouter>
     </AuthProvider>

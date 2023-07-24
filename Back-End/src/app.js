@@ -13,7 +13,11 @@ import tasksRoutes from './routes/tasks.routes.js';
 const app = express();
 
 // We stablish only the dominion that will be allowed to comunicate.
-app.use(cors( { origin: 'http://localhost:3000' } ));
+// "credentials: true" so it can access the cookies.
+app.use(cors({ 
+    origin: 'http://localhost:3000',
+    credentials: true
+}));
 
 // Using morgan to see on the console the petitions made to backend.
 app.use(morgan('dev'));

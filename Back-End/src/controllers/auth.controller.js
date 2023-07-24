@@ -4,6 +4,9 @@ import User from '../models/userModel.js';
 import bcrypt from 'bcryptjs';
 // Importing function to create a token.
 import {createAccessToken} from '../libs/jwt.js';
+// Importing jwt to validate Token & TOKEN_SECRET.
+import jwt from 'jsonwebtoken';
+import { TOKEN_SECRET } from '../config.js';
 
 // Creating the functions that will handle the info:
 
@@ -116,5 +119,28 @@ export const profile = async (req, res) => {
         email: userFound.email,
         createdAt: userFound.createdAt,
         updatedAt: userFound.updatedAt
+    });
+}
+
+// Function to verify Token
+export const verifyToken = async (req, res) => {
+    // Extract the cookie "token".
+    const {token} = req.cookies;
+
+    if (!token) {res.status(401).json({message: "Unauthorized"})}
+
+    // Verify cookie token.
+    jwt.verify(token, TOKEN_SECRET, async (error, user) => {
+        if (error) {res.status(401).json({message: "Unauthorized"})}
+
+        const userFound = await User.findById(user.id);
+
+        if (!userFound) {res.status(401).json({message: "Unauthorized"})}
+    
+        return res.json({
+            id: userFound._id,
+            username: userFound.username,
+            email: userFound.email
+        });
     });
 }
