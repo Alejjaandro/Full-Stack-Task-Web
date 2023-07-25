@@ -1,5 +1,6 @@
 import { createContext, useContext, useState } from "react";
-import { createTaskRequest, getTasksRequest } from "../api/task";
+import { createTaskRequest, getTasksRequest, deleteTaskRequest } from "../api/task";
+import { useNavigate } from "react-router-dom";
 
 const TaskContext = createContext();
 
@@ -35,8 +36,21 @@ export function TaskProvider ({children}) {
         console.log(res);
     }
 
+    // Delete Task
+    const deleteTask = async (id) => {
+        try {
+            const res = await deleteTaskRequest(id);
+
+            // This update the tasks array to all tasks with an id != (id).
+            if (res.status === 204) {setTasks( tasks.filter(task => task._id != id) )}
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     return (
-        <TaskContext.Provider value={{ tasks, createTask, getTasks }}>
+        <TaskContext.Provider value={{ tasks, createTask, getTasks, deleteTask }}>
             {children}
         </TaskContext.Provider>
     );

@@ -1,14 +1,17 @@
 import { useForm } from 'react-hook-form';
 import { useTasks } from '../context/TaskContext';
+import { useNavigate } from 'react-router-dom';
 
 export default function TaskForm() {
 
   const { register, handleSubmit } = useForm();
+  const navigate = useNavigate();
 
   const { createTask } = useTasks();
 
   const onSubmit = handleSubmit((data) => {
     createTask(data);
+    navigate("/tasks");
   });
 
   return (
@@ -30,7 +33,7 @@ export default function TaskForm() {
           className='w-full bg-zinc-700 text-white px-4 py-2 my-2 rounded-md'
         ></textarea>
 
-        <button>Save Task</button>
+        <button className="bg-indigo-500 px-4 py-1 rounded-sm">Save Task</button>
 
       </form>
     </div>

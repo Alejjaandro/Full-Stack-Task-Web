@@ -50,5 +50,5 @@ export const deleteTask = async (req, res) => {
         return res.status(404).json({ message: 'Task not found' })
     }
     
-    return res.sensStatus(204);
+    return res.sendStatus(204);
 };

@@ -23,26 +23,26 @@ export default function App() {
       <TaskProvider>
         <BrowserRouter>
 
-          <Navbar />
-          
-          <Routes>
+          <main className='container mx-auto px-10'>
+            <Navbar />
+            
+            <Routes>
+              {/* Public Routes */}
+              <Route path="/" element={<Home />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
 
-            {/* Public Routes */}
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
+              {/* Protected Routes */}
+              <Route element={<ProtectedRoutes />} >
+                <Route path="/tasks" element={<Tasks />} />
+                <Route path="/add-task" element={<TaskForm />} />
+                <Route path="/tasks/:id" element={<TaskForm />} />
+                <Route path="/profile" element={<Profile />} />
+              </Route>
+              
+            </Routes>
+          </main>
 
-            {/* Protected Routes */}
-            <Route element={<ProtectedRoutes />} >
-
-              <Route path="/tasks" element={<Tasks />} />
-              <Route path="/add-task" element={<TaskForm />} />
-              <Route path="/tasks/:id" element={<TaskForm />} />
-              <Route path="/profile" element={<Profile />} />
-
-            </Route>
-
-          </Routes>
         </BrowserRouter>
       </TaskProvider>
     </AuthProvider>

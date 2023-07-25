@@ -11,8 +11,8 @@ export default function Login() {
 
   // Constants.
   const navigate = useNavigate();
-  const { register, handleSubmit, formState: {errors} } = useForm();
-  const {signin, isAuthenticated, errors: signinErrors} = useAuth();
+  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { signin, isAuthenticated, errors: signinErrors } = useAuth();
 
   const onSubmit = handleSubmit(data => {
     signin(data);
@@ -24,16 +24,16 @@ export default function Login() {
       navigate("/tasks");
     }
   }, [isAuthenticated]);
-  
+
   return (
     <div className="flex h-[calc(100vh-100px)] items-center justify-center">
       <div className="bg-zinc-800 max-w-md w-full p-10 rounded-md">
 
         {
           signinErrors.map((error, i) => (
-              <div className='bg-red-500 p-2 text-white text-center' key={i}>
-                  {error}
-              </div>
+            <div className='bg-red-500 p-2 text-white text-center' key={i}>
+              {error}
+            </div>
           ))
         }
 
@@ -63,12 +63,15 @@ export default function Login() {
             <p className='text-red-500'> Password is required </p>
           )}
 
-          <button type='submit' className='mt-2 my-2'>Login</button>
+          <button
+            type='submit'
+            className="bg-indigo-500 px-4 py-1 rounded-sm my-2"
+          >Login</button>
 
         </form>
-        
+
         <p className="flex gap-5">
-          Don't have an account? 
+          Don't have an account?
           <Link to="/register" className="text-sky-400">Register</Link>
         </p>
 

@@ -80,7 +80,10 @@ export default function Register() {
                         <p className='text-red-500'> Password is required </p>
                     )}
 
-                    <button type='submit' className='mt-2 my-2'>Register</button>
+                    <button
+                        type='submit'
+                        className="bg-indigo-500 px-4 py-1 rounded-sm my-2"
+                    >Register</button>
                 </form>
 
                 <p className="flex gap-5">

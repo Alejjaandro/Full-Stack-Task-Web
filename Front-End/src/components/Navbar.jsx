@@ -14,6 +14,7 @@ export default function Navbar() {
 
             <ul className="flex gap-x-2">
                 {isAuthenticated ? (
+                    // Authenticated
                     <>
                         <li>Welcome {user.username}</li>
 
@@ -29,6 +30,7 @@ export default function Navbar() {
 
                     </>
                 ) : (
+                    // Not Authenticated
                     <>
                         <li><Link
                             to="/login"
