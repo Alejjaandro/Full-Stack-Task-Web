@@ -1,17 +1,43 @@
 import { useForm } from 'react-hook-form';
 import { useTasks } from '../context/TaskContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useEffect } from 'react';
 
 export default function TaskForm() {
 
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, setValue } = useForm();
   const navigate = useNavigate();
+  const { createTask, getTask, updateTask } = useTasks();
+  
+  // This save the param "id" of a task. We will use it to edit it. 
+  const params = useParams();
 
-  const { createTask } = useTasks();
+  // This send a petition to get the task with the param.id.
+  useEffect( () => {
+    async function loadTask() {
+      if (params.id) {
+        const task = await getTask(params.id);
+        console.log(task);
+        // This sets the fields values of the form with the name indicated to those of the task:
+        // setValue("imputName", value);
+        setValue('title', task.title);
+        setValue('description', task.description);
+      }  
+    }
+
+    loadTask();
+  }, [])
 
   const onSubmit = handleSubmit((data) => {
-    createTask(data);
-    navigate("/tasks");
+    // If params.id exist then make an update, if not, then create a task.
+    if (params.id) {
+      // Receive the "param.id" of the task and the "data" that the form has updated on submit.
+      updateTask(params.id, data);
+    } else {
+      createTask(data);
+    }
+
+    navigate("/tasks");  
   });
 
   return (
