@@ -82,7 +82,7 @@ export default function Register() {
 
                     <button
                         type='submit'
-                        className="bg-indigo-500 px-4 py-1 rounded-sm my-2"
+                        className="bg-sky-500 px-4 py-1 rounded-sm my-2"
                     >Register</button>
                 </form>
 

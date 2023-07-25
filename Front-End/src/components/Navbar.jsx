@@ -8,7 +8,7 @@ export default function Navbar() {
     return (
         <nav className="bg-zinc-700 my-3 flex justify-between py-5 px-10 rounded-lg">
 
-            <Link to="/">
+            <Link to={isAuthenticated ? "/tasks" : "/login"}>
                 <h1 className="text-2xl font-bold">Task Manager</h1>
             </Link>
 
@@ -24,8 +24,10 @@ export default function Navbar() {
                         </li>
 
                         <li><Link
-                            to="/"
-                            onClick={() => { logout() }}>Logout</Link>
+                            to="/login"
+                            onClick={() => { logout() }}
+                            className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md"
+                            >Logout</Link>
                         </li>
 
                     </>
@@ -34,12 +36,12 @@ export default function Navbar() {
                     <>
                         <li><Link
                             to="/login"
-                            className="bg-indigo-500 px-4 py-1 rounded-sm">Login</Link>
+                            className="bg-sky-500 px-4 py-1 rounded-sm">Login</Link>
                         </li>
 
                         <li><Link
                             to="/register"
-                            className="bg-indigo-500 px-4 py-1 rounded-sm">Register</Link>
+                            className="bg-sky-500 px-4 py-1 rounded-sm">Register</Link>
                         </li>
                     </>
                 )}

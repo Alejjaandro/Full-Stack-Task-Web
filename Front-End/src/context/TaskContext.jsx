@@ -68,7 +68,7 @@ export function TaskProvider({ children }) {
             const res = await deleteTaskRequest(id);
 
             // This update the tasks array to all tasks with an id != (id).
-            if (res.status === 204) { setTasks(tasks.filter(task => task._id != id)) }
+            if (res.status === 204) { setTasks(tasks.filter(task => task._id !== id)) }
 
         } catch (error) {
             console.log(error);
