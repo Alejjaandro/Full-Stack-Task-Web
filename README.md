@@ -13,3 +13,11 @@ BACKEND DEPENDENCIES:
 - [cors](https://github.com/expressjs/cors#readme) to avoid _cors_ errors.
 - [zod](https://zod.dev/) as schema declaration and validation library.
 - [morgan](https://github.com/expressjs/morgan#readme) to see on the console the petitions made to backend.
+
+FRONTEND DEPENDENCIES
+- [React](https://react.dev/), a JavaScript library for building user interfaces.
+- [react-hook-form](https://www.react-hook-form.com/) for a flexible and extensible forms with easy-to-use validation.
+- [react-router-dom](https://github.com/remix-run/react-router#readme) a lightweight, fully-featured routing library for the React JavaScript library.
+- [js-cookies](https://github.com/js-cookie/js-cookie#readme), a simple, lightweight JavaScript API for handling cookies.
+- [dayjs](https://day.js.org/), a minimalist JavaScript library that parses, validates, manipulates, and displays dates and times for modern browsers.
+- [axios](https://axios-http.com/), a simple promise based HTTP client for the browser and node.js.
